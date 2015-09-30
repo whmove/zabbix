@@ -47,7 +47,11 @@ gpgcheck=1
 ```
 
 ##4，配置zabbix数据库
-
+接下来我们配置zabbix的数据库，这里我是以mysql 5.1为基础，如果你使用的其它版本，命令可能会有不同。
+如果是新安装的mysql，在服务启动时，系统会自动帮我们初始化
+        /etc/init.d/mysql start
+        mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
+        
 
 
 
