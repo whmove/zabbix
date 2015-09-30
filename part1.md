@@ -6,6 +6,7 @@
 
 ##2，配置zabbix repo
 zabbix官方自2.0开始，已提供了rpm包，http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
+
   rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
   ls /etc/yum.repos.d/zabbix.repo
   
