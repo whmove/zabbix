@@ -49,10 +49,19 @@ gpgcheck=1
 ##4，配置zabbix数据库
 接下来我们配置zabbix的数据库，这里我是以mysql 5.1为基础，如果你使用的其它版本，命令可能会有不同。
 如果是新安装的mysql，在服务启动时，系统会自动帮我们初始化
+
         /etc/init.d/mysql start
         mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
         
+接下来创建zabbix数据库，在提示密码时，请输入前面设置的`pwd123`
 
+        # 创建zabix数据库，设置字符集为utf8
+        mysql -u root -p -e "create database zabbix character set utf8;"
+        # 为zabbix用户授权，并设置密码为`zabbixpwd`
+        mysql -u root -p -e "grant all on zabbix.* to zabbix@localhost identified by 'zabbixpwd';"
+        # 检查前面工作
+        mysql -u root -p -e "show databases;"
+        mysql -u root -p -e "select User,Host from mysql.user where User='zabbix'"
 
 
 
