@@ -2,7 +2,7 @@
 关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，力求简洁明了，容易上手。
 
 ##1，环境介绍
-本文档以CentOS 6.7、zabbix 2.2为基础
+本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`为基础。
 
 ##2，配置zabbix repo
 zabbix官方自2.0开始，已提供了rpm包，http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
