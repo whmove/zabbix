@@ -1,5 +1,5 @@
 #zabbix 安装篇
-关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，文档力求简洁明了，容易上手。
+关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，力求简洁明了，容易上手。
 
 ##1，环境介绍
 本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`、`httpd 2.2`、`php 5.3`、`mysql 5.1`为基础，所有软件都采用rpm包安装方式，以降低门槛。
@@ -47,21 +47,44 @@ gpgcheck=1
 ```
 
 ##4，配置zabbix数据库
-接下来我们配置zabbix的数据库，这里我是以mysql 5.1为基础，如果你使用的其它版本，命令可能会有不同。
-如果是新安装的mysql，在服务启动时，系统会自动帮我们初始化
+启动mysql服务，系统会自动帮我们完成数据库的初始化
 
         /etc/init.d/mysql start
+
+为root用户设置密码
+
         mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
-        
-接下来创建zabbix数据库，在提示密码时，请输入前面设置的`pwd123`
+
+创建zabbix数据库(正式生产环境中使用如下命令时，请去掉命令行中的密码，以交互方式完成登录)
 
         # 创建zabix数据库，设置字符集为utf8
-        mysql -u root -p -e "create database zabbix character set utf8;"
+        mysql -uroot -ppwd123 -e "create database zabbix character set utf8;"
         # 为zabbix用户授权，并设置密码为`zabbixpwd`
-        mysql -u root -p -e "grant all on zabbix.* to zabbix@localhost identified by 'zabbixpwd';"
+        mysql -uroot -ppwd123 -e "grant all on zabbix.* to zabbix@localhost identified by 'zabbixpwd';"
         # 检查前面工作
-        mysql -u root -p -e "show databases;"
-        mysql -u root -p -e "select User,Host from mysql.user where User='zabbix'"
+        mysql -uroot -ppwd123 -e "show databases;"
+        mysql -uroot -ppwd123 -e "select User,Host from mysql.user where User='zabbix'"
+
+导入zabbix的表结构及基础数据(正式生产环境中使用如下命令时，请去掉命令行中的密码，以交互方式完成登录)
+
+        mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/schema.sql
+        mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/images.sql
+        mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/data.sql
+
+
+##5，启动zabbix server服务
+修改`vi /etc/zabbix/zabbix_server.conf`配置文件，设置zabbix用户连接数据库所使用的密码
+
+        DBPassword=zabbixpwd
+
+启动zabbix服务
+
+        /etc/init.d/zabbix-sever start
+
+查看zabbix服务端口及服务启动日志
+
+        netstat -tunlp | grep :10051
+        cat /var/log/zabbix/zabbix_server.log
 
 
 
