@@ -142,6 +142,15 @@ netstat -tunlp | grep :10050
 前端WEB中，`Configuration`--`Hosts`--`Not monitored`，开启对zabbix server自身的监控。
 
 
+###8，清场
+```
+chkconfig mysqld on
+chkconfig httpd on
+chkconfig zabbix-server on
+chkconfig zabbix-agent on
+```
+
+
 
 ##Q&A
 1，前端WEB界面看到，`Zabbix server is running`显示为`No`，但zabbix server服务确实是启动的，并且日志中没有任何错误？
