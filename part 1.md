@@ -142,7 +142,7 @@ netstat -tunlp | grep :10050
 前端WEB中，`Configuration`--`Hosts`--`Not monitored`，开启对zabbix server自身的监控。
 
 
-###8，清场
+##8，清场
 ```
 chkconfig mysqld on
 chkconfig httpd on
