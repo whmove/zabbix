@@ -23,9 +23,9 @@ yum install -y mysql-server
 yum install -y httpd php
 ```
 安装zabbix，因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
-
-    yum install -y zabbix zabbix-agent zabbix-server zabbix-web zabbix-web-mysql
-    
+```
+yum install -y zabbix zabbix-agent zabbix-server zabbix-web zabbix-web-mysql
+```
 **阿里云zabbix repo文件内容**
 `/etc/yum.repos.d/zabbix.repo`
 ```
@@ -48,61 +48,61 @@ gpgcheck=1
 
 ##4，配置zabbix数据库
 启动mysql服务，系统会自动帮我们完成数据库的初始化
-
-        /etc/init.d/mysql start
-
+```
+/etc/init.d/mysql start
+```
 为root用户设置密码
-
-        mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
-
+```
+mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
+```
 创建zabbix数据库(正式生产环境中使用如下命令时，请去掉命令行中的密码，以交互方式完成登录)
-
-        # 创建zabix数据库，设置字符集为utf8
-        mysql -uroot -ppwd123 -e "create database zabbix character set utf8;"
-        # 为zabbix用户授权，并设置密码为`zabbixpwd`
-        mysql -uroot -ppwd123 -e "grant all on zabbix.* to zabbix@localhost identified by 'zabbixpwd';"
-        # 检查前面工作
-        mysql -uroot -ppwd123 -e "show databases;"
-        mysql -uroot -ppwd123 -e "select User,Host from mysql.user where User='zabbix'"
-
+```
+# 创建zabix数据库，设置字符集为utf8
+mysql -uroot -ppwd123 -e "create database zabbix character set utf8;"
+# 为zabbix用户授权，并设置密码为`zabbixpwd`
+mysql -uroot -ppwd123 -e "grant all on zabbix.* to zabbix@localhost identified by 'zabbixpwd';"
+# 检查前面工作
+mysql -uroot -ppwd123 -e "show databases;"
+mysql -uroot -ppwd123 -e "select User,Host from mysql.user where User='zabbix'"
+```
 导入zabbix的表结构及基础数据(正式生产环境中使用如下命令时，请去掉命令行中的密码，以交互方式完成登录)
-
-        mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/schema.sql
-        mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/images.sql
-        mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/data.sql
-
+```
+mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/schema.sql
+mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/images.sql
+mysql -uzabbix -pzabbixpwd zabbix < /usr/share/doc/zabbix-server-mysql-2.2.10/create/data.sql
+```
 
 ##5，启动zabbix server服务
 修改`vi /etc/zabbix/zabbix_server.conf`配置文件，设置zabbix服务连接数据库所使用的密码
-
-        DBPassword=zabbixpwd
-
+```
+DBPassword=zabbixpwd
+```
 启动zabbix服务
-
-        /etc/init.d/zabbix-sever start
-
+```
+/etc/init.d/zabbix-sever start
+```
 查看zabbix服务端口及启动日志
-
-        netstat -tunlp | grep :10051
-        cat /var/log/zabbix/zabbix_server.log
-
+```
+netstat -tunlp | grep :10051
+cat /var/log/zabbix/zabbix_server.log
+```
 ##6，配置前端WEB
 zabbix前端使用PHP编写，运行时对php环境配置有要求。
 我们安装的php 5.3，大部分要求均可满足，如果未能满足在安装时会有提示，按要求修改即可。
 
 开启web服务(如果开启了防火墙的，记得开放相应的端口)
-
-        /etc/init.d/httpd start
-        netstat -tunlp | grep :80
-
+```
+/etc/init.d/httpd start
+netstat -tunlp | grep :80
+```
 接下来在游览器中打开`http://hostip/zabbix/`，会看到zabbix安装界面
 (自行脑补所缺截图)
 
 下一步后，我们看到有一个`php time zone`的条件未满足，修改`/etc/php.ini`文件中相应设置后，重启web服务，然后再点击`Retry`，重新检查所需环境
-
-        date.timezone = ShangHai
-        /etc/init.d/http restart
-
+```
+date.timezone = ShangHai
+/etc/init.d/http restart
+```
 
 
 
