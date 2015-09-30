@@ -1,5 +1,5 @@
 #zabbix 安装篇
-关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，力求简洁明了，容易上手。
+本文档主要面对zabbix新手，力求简洁明了，不涉及性能及安全部分，本文档假定用户已禁用selinux和防火墙。
 
 ##1，环境介绍
 本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`、`httpd 2.2`、`php 5.3`、`mysql 5.1`为基础，所有软件都采用rpm包安装方式，以降低门槛。
@@ -73,7 +73,7 @@ gpgcheck=1
 
 
 ##5，启动zabbix server服务
-修改`vi /etc/zabbix/zabbix_server.conf`配置文件，设置zabbix用户连接数据库所使用的密码
+修改`vi /etc/zabbix/zabbix_server.conf`配置文件，设置zabbix服务连接数据库所使用的密码
 
         DBPassword=zabbixpwd
 
@@ -81,10 +81,30 @@ gpgcheck=1
 
         /etc/init.d/zabbix-sever start
 
-查看zabbix服务端口及服务启动日志
+查看zabbix服务端口及启动日志
 
         netstat -tunlp | grep :10051
         cat /var/log/zabbix/zabbix_server.log
+
+##6，配置前端WEB
+zabbix前端使用PHP编写，运行时对php环境配置有要求。
+我们安装的php 5.3，大部分要求均可满足，如果未能满足在安装时会有提示，按要求修改即可。
+
+开启web服务(如果开启了防火墙的，记得开放相应的端口)
+
+        /etc/init.d/httpd start
+        netstat -tunlp | grep :80
+
+接下来在游览器中打开`http://hostip/zabbix/`，会看到zabbix安装界面
+(自行脑补所缺截图)
+
+下一步后，我们看到有一个`php time zone`的条件未满足，修改`/etc/php.ini`文件中相应设置后，重启web服务，然后再点击`Retry`，重新检查所需环境
+
+        date.timezone = ShangHai
+        /etc/init.d/http restart
+
+
+
 
 
 
