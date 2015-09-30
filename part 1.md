@@ -24,7 +24,7 @@ yum install -y httpd php
 ```
 安装zabbix，因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
 ```
-yum install -y zabbix zabbix-agent zabbix-server zabbix-web zabbix-web-mysql
+yum install -y zabbix zabbix-agent zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql
 ```
 **阿里云zabbix repo文件内容**
 `/etc/yum.repos.d/zabbix.repo`
