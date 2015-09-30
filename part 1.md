@@ -1,15 +1,17 @@
 #zabbix 安装篇
-关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，力求简洁明了，容易上手。
+------
+关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，文档力求简洁明了，容易上手。
 
 ##1，环境介绍
-本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`、`httpd 2.2`、`php 5.3`为基础
+本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`、`httpd 2.2`、`php 5.3`、`mysql 5.1`为基础，所有软件都采用rpm包安装方式，以降低新手门槛。
 
 ##2，配置zabbix repo
-zabbix官方自2.0开始，已提供了rpm包，http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
+zabbix官方已提供了rpm包，我们只需要安装官方提供的repo仓库即可。
+http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
 
     rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
     ls /etc/yum.repos.d/zabbix.repo
-  
+
 如果不出错误，应该可以看到zabbix的repo配置，如果没有此文件，请检查网络和系统环境。
 
 ##3，安装zabbix运行所需要的软件包
@@ -21,11 +23,12 @@ zabbix官方自2.0开始，已提供了rpm包，http://repo.zabbix.com/zabbix/2.
 
     yum install -y httpd php
 
-安装zabbix，因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改repo文件 ，指向阿里云zabbix的镜像)
+安装zabbix，因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
 
     yum install -y zabbix zabbix-agent zabbix-server zabbix-web zabbix-web-mysql
     
-**阿里云 zabbix repo**
+**阿里云zabbix repo文件内容**
+`/etc/yum.repos.d/zabbix.repo`
 ```
 [zabbix]
 name=Zabbix Official Repository - $basearch
@@ -44,7 +47,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
 gpgcheck=1
 ```
 
-
+##4，配置zabbix数据库
 
 
 
