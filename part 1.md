@@ -96,11 +96,11 @@ zabbix前端使用PHP编写，运行时对php环境配置有要求。
 netstat -tunlp | grep :80
 ```
 
->1. Welcome
+> Welcome
 
 在游览器中打开`http://hostip/zabbix/`，会看到zabbix安装界面
 
->2. Check of pre-requisites
+> Check of pre-requisites
 
 在zabbix web环境检查界面，会看到有一个`php time zone`的条件未满足，
 修改`/etc/php.ini`文件中相应设置后，重启web服务，然后再点击`Retry`，请确保检测通过
@@ -109,22 +109,22 @@ date.timezone = Asia/Shanghai
 /etc/init.d/http restart
 ```
 
->3. Configure DB connection
+> Configure DB connection
 
 设置数据库连接所使用的账号密码：
 User: zabbix
 Password: zabbixpwd
 然后执行`Test connection`，请确保检测通过
 
->4. Zabbix server details
+> Zabbix server details
 
 指定zabbix server所在的主机和端口，此文档中都是在同一台主机上，所以直接`Next`
 
->5. Pre-Installation summary
+> Pre-Installation summary
 
 再次检查所有配置，如果有问题`Previous`修改，确认无误后`Next`
 
->6. Install
+> Install
 
 可看到web相关配置会保存至文件`etc/zabbix/web/zabbix.conf.php`，以后需要调整，直接修改这个文件即可。
 
