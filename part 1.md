@@ -7,21 +7,21 @@
 ##2，配置zabbix repo
 zabbix官方已提供了rpm包，我们只需要安装官方提供的repo仓库即可。
 http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
-
-    rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
-    ls /etc/yum.repos.d/zabbix.repo
-
+```
+rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
+ls /etc/yum.repos.d/zabbix.repo
+```
 如果不出错误，应该可以看到zabbix的repo配置，如果没有此文件，请检查网络和系统环境。
 
 ##3，安装zabbix运行所需要的软件包
 安装mysql数据库
-
-    yum install -y mysql-server
-    
+```
+yum install -y mysql-server
+```
 安装apache及php
-
-    yum install -y httpd php
-
+```
+yum install -y httpd php
+```
 安装zabbix，因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
 
     yum install -y zabbix zabbix-agent zabbix-server zabbix-web zabbix-web-mysql
@@ -102,7 +102,6 @@ zabbix前端使用PHP编写，运行时对php环境配置有要求。
 
         date.timezone = ShangHai
         /etc/init.d/http restart
-
 
 
 
