@@ -134,9 +134,17 @@ Username:Admin
 Password:zabbix
 ```
 
+##7，添加zabbix server自身的监控
+```
+/etc/init.d/zabbix-agent start
+netstat -tunlp | grep :10050
+```
+前端WEB中，`Configuration`--`Hosts`--`Not monitored`，开启对zabbix server自身的监控。
+
+
 
 ##Q&A
-1，前端界面看到，`Zabbix server is running`显示为`No`，但zabbix server服务确实是启动的，并且日志中没有任何错误？
+1，前端WEB界面看到，`Zabbix server is running`显示为`No`，但zabbix server服务确实是启动的，并且日志中没有任何错误？
 >请检查selinux状态，确保是禁用状态，或者为其配置权限
 ```
 [root@zabbix zabbix]# sestatus 
