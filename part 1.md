@@ -98,13 +98,14 @@ netstat -tunlp | grep :80
 接下来在游览器中打开`http://hostip/zabbix/`，会看到zabbix安装界面
 (自行脑补所缺截图)
 
-下一步后，我们看到有一个`php time zone`的条件未满足，修改`/etc/php.ini`文件中相应设置后，重启web服务，然后再点击`Retry`，重新检查所需环境
+`Next`后，我们看到zabbix web运行环境的检查，有一个`php time zone`的条件未满足，
+修改`/etc/php.ini`文件中相应设置后，重启web服务，然后再点击`Retry`，请保证所有检测通过
 ```
 date.timezone = ShangHai
 /etc/init.d/http restart
 ```
 
-
+>3. Configure DB connection
 
 
 
