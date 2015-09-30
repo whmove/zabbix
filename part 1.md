@@ -1,9 +1,8 @@
 #zabbix 安装篇
-------
 关于zabbix相关介绍就不多说，本文档主要面对zabbix新手，文档力求简洁明了，容易上手。
 
 ##1，环境介绍
-本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`、`httpd 2.2`、`php 5.3`、`mysql 5.1`为基础，所有软件都采用rpm包安装方式，以降低新手门槛。
+本文档以`CentOS 6.7 x86_64`、`zabbix 2.2`、`httpd 2.2`、`php 5.3`、`mysql 5.1`为基础，所有软件都采用rpm包安装方式，以降低门槛。
 
 ##2，配置zabbix repo
 zabbix官方已提供了rpm包，我们只需要安装官方提供的repo仓库即可。
