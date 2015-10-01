@@ -51,7 +51,7 @@ gpgcheck=1
 ```
 /etc/init.d/mysql start
 ```
-为root用户设置密码
+设置msyql的root用户密码
 ```
 mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
 ```
