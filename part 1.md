@@ -8,7 +8,7 @@
 zabbix官方已提供了rpm包，我们只需要安装官方提供的repo仓库即可。
 http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
 ```
-rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
+rpm -ivh http://mirrors.aliyun.com/zabbix/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
 ls /etc/yum.repos.d/zabbix.repo
 ```
 如果不出错误，应该可以看到zabbix的repo配置，如果没有此文件，请检查网络和系统环境。
