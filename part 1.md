@@ -11,6 +11,7 @@ http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
 rpm -ivh http://mirrors.aliyun.com/zabbix/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
 ```
 因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
+
 **阿里云zabbix repo文件内容**
 `/etc/yum.repos.d/zabbix.repo`
 ```
