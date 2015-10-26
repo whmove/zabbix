@@ -9,23 +9,8 @@ zabbix官方已提供了rpm包，我们只需要安装官方提供的repo仓库�
 http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/
 ```
 rpm -ivh http://mirrors.aliyun.com/zabbix/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
-ls /etc/yum.repos.d/zabbix.repo
 ```
-如果不出错误，应该可以看到zabbix的repo配置，如果没有此文件，请检查网络和系统环境。
-
-##3，安装zabbix运行所需要的软件包
-安装mysql数据库
-```
-yum install -y mysql-server
-```
-安装apache及php
-```
-yum install -y httpd php
-```
-安装zabbix，因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
-```
-yum install -y zabbix zabbix-agent zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql
-```
+因为某些原因，zabbix下载会很慢(遇到无法成功下载的问题，请修改zabbix的repo文件，指向阿里云的zabbix镜像)
 **阿里云zabbix repo文件内容**
 `/etc/yum.repos.d/zabbix.repo`
 ```
@@ -45,6 +30,22 @@ enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
 gpgcheck=1
 ```
+如果不出错误，应该可以看到zabbix的repo配置，如果没有此文件，请检查网络和系统环境。
+
+##3，安装zabbix运行所需要的软件包
+安装mysql数据库
+```
+yum install -y mysql-server
+```
+安装apache及php
+```
+yum install -y httpd php
+```
+安装zabbix
+```
+yum install -y zabbix zabbix-agent zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql
+```
+
 
 ##4，配置zabbix数据库
 启动mysql服务，系统会自动帮我们完成数据库的初始化
@@ -61,6 +62,7 @@ mysqladmin -u root password 'pwd123'    # 设置root用户密码为pwd123
 mysql -uroot -ppwd123 -e "create database zabbix character set utf8;"
 # 为zabbix用户授权，并设置密码为`zabbixpwd`
 mysql -uroot -ppwd123 -e "grant all on zabbix.* to zabbix@localhost identified by 'zabbixpwd';"
+mysql -uroot -ppwd123 -e "flush privileges;"
 # 检查前面工作
 mysql -uroot -ppwd123 -e "show databases;"
 mysql -uroot -ppwd123 -e "select User,Host from mysql.user where User='zabbix'"
